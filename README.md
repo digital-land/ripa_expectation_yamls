@@ -9,3 +9,9 @@ The folder "expectations_results" has one folder for each of the datasets named 
 More information about how expectation yamls should be used via the expectation tool (now usable from inside the Digital-Land-Python package) can be found at: https://github.com/digital-land/digital-land-python/tree/main/digital_land/expectations
 
 The datasets used to run the data quality tests stored here were obtained from the S3 buckets where they are saved by the collection pipelines.
+
+## Status
+
+- For most of the dataset expectation yamls, they will contain an initial set of data quality expectations that was written taking in consideration general information about the datasets and contents of the specification repos.
+
+- For the "article-4-direction-area" yaml also re-wrote most of the tests that are made via the API (https://digital-land-performance.herokuapp.com/ripa/) to be made via the expectations tool. We say most because a few of them used information or functionality that is available at the API but was not available in the dataset stage and spacialite. Note that a few tests were kept commented because at the time of writting they were failing in the herokuapp so we saw no advantage of having them running via the expectation during the development stage (they can easily be un-commented if one wished them to run anyway).
