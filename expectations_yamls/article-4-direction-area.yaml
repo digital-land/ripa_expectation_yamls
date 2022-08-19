@@ -1,0 +1,386 @@
+collection_name: article-4-direction-area
+
+expectations:
+  - expectation_name: expect_database_to_have_set_of_tables
+    expectation_severity: RaiseError
+    fail_if_found_more_than_expected: False
+    expected_tables_set: 
+      - column_field
+      - dataset_resource
+      - entity
+      - fact
+      - fact_resource
+  
+  - expectation_name: expect_table_row_count_to_be_in_range
+    expectation_severity: RaiseError
+    table_name: entity
+    min_expected_row_count: 1300
+    max_expected_row_count: 13000
+
+  - expectation_name: expect_table_to_have_set_of_columns
+    expectation_severity: RaiseError 
+    table_name: entity    
+    fail_if_found_more_than_expected: False   
+    expected_columns_set:      
+      - dataset 
+      - end_date 
+      - entity 
+      - entry_date 
+      - geojson 
+      - geometry
+      - json 
+      - name
+      - organisation_entity
+      - point
+      - prefix
+      - reference
+      - start_date
+      - typology
+
+  - expectation_name: expect_values_for_field_to_be_unique
+    expectation_severity: RaiseError
+    table_name: entity
+    fields:
+      - entity
+
+  - expectation_name: expect_values_in_field_to_be_within_range
+    expectation_severity: RaiseError
+    min_expected_value: 1100000
+    max_expected_value: 1199999
+    table_name: entity
+    field_name: entity
+    ref_fields:
+      - entity
+
+  - expectation_name: expect_geoshapes_to_be_valid
+    expectation_severity: RaiseError
+    table_name: entity
+    shape_field: geometry
+    ref_fields: 
+      - entity
+
+  - expectation_name: expect_geoshapes_to_be_valid
+    expectation_severity: RaiseError
+    table_name: entity
+    shape_field: point
+    ref_fields: 
+      - entity
+
+  - expectation_name: expect_row_count_for_lookup_value_to_be_in_range
+    expectation_severity: LogWarning
+    table_name: entity
+    field_name: organisation_entity
+    count_ranges_per_value:
+      - lookup_value: 329 
+        min_row_count: 450
+        max_row_count: 1500
+      - lookup_value: 75
+        min_row_count: 440
+        max_row_count: 1500
+      - lookup_value: 67
+        min_row_count: 190
+        max_row_count: 650
+      - lookup_value: 220
+        min_row_count: 80
+        max_row_count: 300
+      - lookup_value: 212
+        min_row_count: 25
+        max_row_count: 120
+      - lookup_value: 192
+        min_row_count: 20
+        max_row_count: 90
+      - lookup_value: 145
+        min_row_count: 10
+        max_row_count: 70
+
+  - expectation_name: expect_keys_in_json_field_to_be_in_set_of_options
+    expectation_severity: LogWarning
+    table_name: entity
+    field_name: json     
+    ref_fields: 
+      - entity
+    expected_keys_set: 
+      - article-4-direction
+      - article-4-direction-rule
+      - address-text
+      - documentation-url
+      - document-url
+      - end-date
+      - entity
+      - entry-date
+      - geometry
+      - name
+      - description
+      - notes
+      - organisation
+      - point
+      - prefix
+      - reference
+      - start-date
+      - uprn
+
+  - expectation_name: expect_urls_stored_for_a_key_in_json_to_end_in_expected_domain_endings
+    expectation_severity: RaiseError
+    table_name: entity
+    field_name: json
+    json_key: documentation-url
+    list_of_domain_endings:
+      - .gov.uk
+      - .org.uk
+    ref_fields:
+      - entity
+
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT entity FROM entity WHERE NOT within(GeomFromText(point),GeomFromText('POLYGON((1.8945312500000089 51.813140280780466,1.5783691406250133 51.18131235395438,0.9765625000000178 50.721890578206164,-0.051269531249973355 50.5284096928028,-0.9423828124999956 50.44088083267981,-1.483154296875 50.335512996977926,-2.7832031249999867 50.40634596393264,-3.245239257812478 50.330303614003356,-3.399658203124989 50.057047896096385,-4.06494140625 50.12857778117416,-4.400634765624991 50.059144553242234,-4.758911132812493 49.958865388612246,-5.007324218749996 49.77331028794251,-5.823059082031246 49.75328575147075,-6.263885498046871 49.7752076802917,-6.583862304687496 49.85736105326951,-6.368103027343747 50.06494022902259,-5.9326171875 50.250554601622895,-5.627441406250004 50.47301627982946,-5.083007812499993 50.859369669480465,-4.724502563476567 51.14927897602981,-4.133262634277344 51.37592173647727,-4.014434814453121 51.36884171634959,-3.985519409179674 51.334090960995546,-3.758850097656228 51.37481312750211,-3.7738800048827814 51.37951287703446,-3.769683837890605 51.382497984062354,-3.7270355224609286 51.36490930996807,-3.7139511108398304 51.396401442734486,-3.6085319519042813 51.38300771989602,-3.3795166015624822 51.340451325977895,-3.209152221679661 51.364022211603206,-3.136329650878875 51.38266036506907,-3.1321716308593595 51.43383561968381,-3.0408287048339666 51.46710201784049,-2.94571876525878 51.45635154843468,-2.870697975158687 51.519389081514184,-2.8835678100585938 51.65737210215303,-2.858142852783201 51.78572244235055,-3.107376098632808 51.92726036476879,-3.2473754882812367 52.18016290090824,-3.380546569824201 52.4218032647466,-3.183126449584952 52.63896014960092,-3.249378204345683 52.7820099275612,-3.0852508544921653 52.94771279049035,-2.987914085388166 53.06090069619383,-3.1322765350341664 53.20670482579809,-3.3660697937011475 53.53602490092128,-3.2623672485351296 53.75408904942994,-3.428497314453114 53.980614559588254,-4.0134429931640625 54.46193444654582,-3.851318359374991 54.627215736585946,-3.367919921874991 55.00229817961456,-2.796630859374991 55.21126438852553,-2.428588867187491 55.44407341676468,-2.434082031249991 55.69409744799882,-2.055053710937491 55.9263786256468,-1.3244628906249911 55.52810983041714,-1.1157226562499911 54.82073110533281,-0.3686523437499911 54.70981068040305,-0.08300781249999112 54.46152152812056,0.17036437988282138 54.176767735332994,0.13809204101563388 53.9029871031785,0.5130004882812589 53.55934253266715,0.5926513671875089 53.14786586860435,1.8972778320312589 52.97124627370828,2.059326171875009 52.56076613683623,1.8945312500000089 51.813140280780466))'));"
+    expected_query_result: []
+
+  # RIPA tests
+  ## Article 4 direction area
+  
+  ##### Buckinghamshire Council #######
+ 
+  # Chilterns article 4 direction
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name, json_extract(json,'$.description') AS description FROM entity WHERE within(GeomFromText('POINT(-0.845119 51.667878)'),GeomFromText(geometry));"
+    expected_query_result:
+      - name: "Former Wycombe Rural District - Poultry Production"
+        description: "Certain structures used for production of poultry or eggs - refer to Order & GDO 1950"
+  
+  # # Chorleywood Article 4 direction, outside of Buckinghamshire - FAILING ON RIPA DASHBOARD
+  # - expectation_name: expect_custom_query_result_to_be_as_predicted
+  #   expectation_severity: LogWarning
+  #   custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE within(GeomFromText('POINT(-0.53418646 51.65627576)'),GeomFromText(geometry));"
+  #   expected_query_result:
+  #     - count: 1
+
+  # #  Land north of Burton's Lane Article 4 direction, outside of Buckinghamshire  - FAILING ON RIPA DASHBOARD
+  # - expectation_name: expect_custom_query_result_to_be_as_predicted
+  #   expectation_severity: LogWarning
+  #   custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE within(GeomFromText('POINT(-0.51872219 51.66143563)'),GeomFromText(geometry));"
+  #   expected_query_result:
+  #     - count: 1
+    
+  # Buckinghamshire Article 4 Direction NE of Wycombe Heath Farm
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE within(GeomFromText('POINT(-0.70412678 51.67024811)'),GeomFromText(geometry));"
+    expected_query_result:
+      - count: 3
+  
+  # South Buckinghamshire Development Article 4 Direction hacked into the name
+  # SKIPPED AS Organisation Name not available on the dataset
+
+  # South Buckinghamshire Argricultural Article 4 Direction hacked into the name
+  # SKIPPED AS Organisation Name not available on the dataset
+
+  # # Article 4 Land off Copperkins Lane (should have areas for rules Means of enclosure and Caravan Sites)
+  # # - FAILING ON RIPA DASHBOARD
+  # - expectation_name: expect_custom_query_result_to_be_as_predicted
+  #   expectation_severity: LogWarning
+  #   custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE within(GeomFromText('POINT(-0.62319097 51.68831210)'),GeomFromText(geometry));"
+  #   expected_query_result:
+  #     - count: 3
+
+ # Article 4 Alderbourne Farm (shape disagreement)
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE within(GeomFromText('POINT(-0.62319097 51.68831210)'),GeomFromText(geometry));"
+    expected_query_result:
+      - count: 1
+
+#  # Article 4 Land West of Mansion Lane - immediately to the west and south row of cottages No's 110-148
+#  # - FAILING ON RIPA DASHBOARD
+#   - expectation_name: expect_custom_query_result_to_be_as_predicted
+#     expectation_severity: LogWarning
+#     custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE within(GeomFromText('POINT(-0.52649740 51.51431737)'),GeomFromText(geometry));"
+#     expected_query_result:
+#       - count: 1
+
+  #  Article 4 Land West of Mansion Lane - 'dev type' patch values check
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name, COUNT(*) AS count FROM entity WHERE within(GeomFromText('POINT(-0.52649001 51.51644676)'),GeomFromText(geometry));"
+    expected_query_result:
+      - name: "Land West of Mansion Lane, Immediately South of Iverdale Close, Iver - Development"
+        count: 1
+
+
+  ##### Canterbury City Council #######
+
+
+  # Canterbury article 4 direction (Kemberland Wood)
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name FROM entity WHERE within(GeomFromText('POINT(1.121256 51.315129)'),GeomFromText(geometry)) ORDER BY name;"
+    expected_query_result:
+      - name: "Canterbury and surrounding area"
+      - name: "Land at Kemberland Wood, Sturry"
+        
+  # Canterbury article 4 direction (Herne Bay)
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name FROM entity WHERE within(GeomFromText('POINT(1.12258974 51.36587529)'),GeomFromText(geometry)) ORDER BY name;"
+    expected_query_result:
+      - name: "Dwelling houses in Herne Bay Conservation Area"
+  
+  #  Canterbury article 4 direction (Simplification)
+  # LOOK DEEPER, SUCCEEDS IN THE RIPA DASHBOARD BUT FAILS HERE? 
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE within(GeomFromText('POINT(1.12258755 51.36586015)'),GeomFromText(geometry));"
+    expected_query_result:
+      - count: 0
+
+  # Canterbury article 4 direction count
+  # SUGGEST USING MORE FLEXIBLE EXPECTATION FOR THIS WITH A RANGE
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE organisation_entity=75;"
+    expected_query_result:
+      - count: 463
+
+
+  ##### Doncaster Metropolitan Borough Council #######
+
+  # Doncaster article 4 direction area
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT count(*) AS count FROM entity WHERE within(GeomFromText('POINT(-1.13040872 53.51816498)'),GeomFromText(geometry));"
+    expected_query_result:
+      - count: 1
+ 
+
+  ##### Gloucester City Council #######
+
+  
+  #  Gloucester Article 4 Directions 35 Stroud Road
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT reference FROM entity WHERE within(GeomFromText('POINT(-2.24972315 51.85746141)'),GeomFromText(geometry));"
+    expected_query_result:
+      - reference: "35 Stroud Road"
+
+  # Gloucester Article 4 Directions 12 Albion Street
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT reference FROM entity WHERE within(GeomFromText('POINT(-2.24929843 51.86129062)'),GeomFromText(geometry));"
+    expected_query_result:
+      - reference: "12 Albion Street"
+
+  # Gloucester Article 4 Directions 6 Somerset Place
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT reference FROM entity WHERE within(GeomFromText('POINT(-2.25018346 51.85939957)'),GeomFromText(geometry));"
+    expected_query_result:
+      - reference: "6 Somerset Place"
+
+
+  ##### London Borough of Lambeth #######
+
+
+  # Lambeth article 4 direction Brixton
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name FROM entity WHERE within(GeomFromText('POINT(-0.114154 51.462486)'),GeomFromText(geometry));"
+    expected_query_result:
+      - name: "Brixton Town Centre"
+
+  # Lambeth article 4 direction South Bank House and Newport Street
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name FROM entity WHERE within(GeomFromText('POINT(-0.1198903 51.4922191)'),GeomFromText(geometry));"
+    expected_query_result:
+      - name: "South Bank House and Newport Street"
+
+  # Lambeth article 4 direction count
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT COUNT(*) AS count FROM entity WHERE organisation_entity=192;"
+    expected_query_result:
+      - count: 28
+
+
+  ##### Medway Council #######
+
+
+  # Medway Article 4 Directions Brompton Lines
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT reference FROM entity WHERE within(GeomFromText('POINT(0.54434025 51.39156389)'),GeomFromText(geometry));"
+    expected_query_result:
+      - reference: "Brompton Lines"
+
+  # Medway Article 4 Directions Upper Bush
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT reference FROM entity WHERE within(GeomFromText('POINT(0.43547436 51.37577851)'),GeomFromText(geometry));"
+    expected_query_result:
+      - reference: "Upper Bush (1)"
+
+  # Medway Article 4 Lasso Rochester
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT count(*) AS count FROM entity WHERE ST_Intersects(GeomFromText(geometry),GeomFromText('POLYGON((0.5021095275878905 51.39031566485798, 0.49283981323242176 51.3792811079534, 0.5235671997070311 51.36770803527875, 0.5365276336669921 51.378370370333016, 0.5238246917724608 51.38672704752679, 0.5200481414794922 51.3833524192608, 0.5138683319091796 51.383673823150446, 0.5021095275878905 51.39031566485798))'))"
+    expected_query_result:
+      - count: 20
+
+
+  ##### Northumberland County Council #######
+
+
+  # Northumberland Article 4 Directions Old Vicarage
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT reference FROM entity WHERE within(GeomFromText('POINT(-1.64749000 55.19570970)'),GeomFromText(geometry));"
+    expected_query_result:
+      - reference: "{79F7D1EF-E9D7-493A-A986-7C108378D56D}"
+
+  # Northumberland Article 4 Lasso Whalton
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT count(*) AS count FROM entity WHERE ST_Intersects(GeomFromText(geometry),GeomFromText('POLYGON((-1.8046975135803218 55.1283300961627,-1.8049764633178706 55.12564326659586,-1.7957067489624021 55.124845770972,-1.7898702621459956 55.126538896539586,-1.7930674552917476 55.12774121748134,-1.794612407684326 55.128661336604296,-1.7976593971252437 55.128734945218156,-1.801199913024902 55.12900484230789,-1.8046975135803218 55.1283300961627))'))"
+    expected_query_result:
+      - count: 52
+
+
+  ##### London Borough of Southwark #######
+
+
+  #  Southwark article 4 direction (The Lord Nelson, Union Street)
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name FROM entity WHERE within(GeomFromText('POINT(-0.102682 51.503432)'),GeomFromText(geometry)) ORDER BY name;"
+    expected_query_result:
+      - name: "Bankside and Borough District Town Centre"
+      - name: "Bankside and Borough District Town Centre"
+      - name: "Central Activities Zone"
+      - name: "Central Activities Zone"
+      - name: "Central Activities Zone"
+      - name: "The Lord Nelson"
+
+  # Southwark article 4 direction (The Lord Nelson, Old Kent Road)
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name FROM entity WHERE within(GeomFromText('POINT(-0.074274 51.486724)'),GeomFromText(geometry)) ORDER BY name;"
+    expected_query_result:
+      - name: "Old Kent Road North District Town Centre"
+      - name: "Old Kent Road North District Town Centre"
+      - name: "Protected shopping frontage SF24: Old Kent Road, East Street and Dunton Road"
+      - name: "THE LORD NELSON"
+  
+  # Southwark article 4 direction (Railway arches)
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT name FROM entity WHERE within(GeomFromText('POINT(-0.1049237 51.5038861)'),GeomFromText(geometry)) ORDER BY name;"
+    expected_query_result:
+      - name: "Bankside and Borough District Town Centre"
+      - name: "Bankside and Borough District Town Centre"
+      - name: "Central Activities Zone"
+      - name: "Central Activities Zone"
+      - name: "Central Activities Zone"
+      - name: "Railway Arches"
+      - name: "Railway Arches"
+      - name: "Site allocation NSP20: Southwark Station and 1 Joan Street"
+      - name: "Site allocation NSP20: Southwark Station and 1 Joan Street"

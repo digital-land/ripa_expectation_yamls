@@ -1,0 +1,101 @@
+collection_name: article-4-direction
+
+expectations:
+  - expectation_name: expect_database_to_have_set_of_tables
+    expectation_severity: RaiseError
+    fail_if_found_more_than_expected: False
+    expected_tables_set: 
+      - column_field
+      - dataset_resource
+      - entity
+      - fact
+      - fact_resource
+  
+  - expectation_name: expect_table_row_count_to_be_in_range
+    expectation_severity: RaiseError
+    table_name: entity
+    min_expected_row_count: 4
+    max_expected_row_count: 40
+
+  - expectation_name: expect_table_to_have_set_of_columns
+    expectation_severity: RaiseError 
+    table_name: entity    
+    fail_if_found_more_than_expected: False   
+    expected_columns_set:      
+      - dataset 
+      - end_date 
+      - entity 
+      - entry_date 
+      - geojson 
+      - geometry
+      - json 
+      - name
+      - organisation_entity
+      - point
+      - prefix
+      - reference
+      - start_date
+      - typology
+
+  - expectation_name: expect_values_for_field_to_be_unique
+    expectation_severity: RaiseError
+    table_name: entity
+    fields:
+      - entity
+
+  - expectation_name: expect_values_in_field_to_be_within_range
+    expectation_severity: RaiseError
+    min_expected_value: 6100000
+    max_expected_value: 6199999
+    table_name: entity
+    field_name: entity
+    ref_fields:
+      - entity
+
+  - expectation_name: expect_keys_in_json_field_to_be_in_set_of_options
+    expectation_severity: LogWarning
+    table_name: entity
+    field_name: json     
+    ref_fields: 
+      - entity
+    expected_keys_set: 
+      - article-4-direction
+      - article-4-direction-rule
+      - address-text
+      - documentation-url
+      - document-url
+      - end-date
+      - entity
+      - entry-date
+      - geometry
+      - name
+      - description
+      - notes
+      - organisation
+      - point
+      - prefix
+      - reference
+      - start-date
+      - uprn
+
+  - expectation_name: expect_urls_stored_for_a_key_in_json_to_end_in_expected_domain_endings
+    expectation_severity: RaiseError
+    table_name: entity
+    field_name: json
+    json_key: document-url
+    list_of_domain_endings:
+      - .gov.uk
+      - .org.uk
+    ref_fields:
+      - entity
+
+  - expectation_name: expect_urls_stored_for_a_key_in_json_to_end_in_expected_domain_endings
+    expectation_severity: RaiseError
+    table_name: entity
+    field_name: json
+    json_key: documentation-url
+    list_of_domain_endings:
+      - .gov.uk
+      - .org.uk
+    ref_fields:
+      - entity

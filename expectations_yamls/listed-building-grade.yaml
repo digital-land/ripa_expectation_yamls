@@ -1,0 +1,79 @@
+collection_name: listed-building-grade
+
+expectations:
+  - expectation_name: expect_database_to_have_set_of_tables
+    expectation_severity: RaiseError
+    fail_if_found_more_than_expected: False
+    expected_tables_set: 
+      - column_field
+      - dataset_resource
+      - entity
+      - fact
+      - fact_resource
+  
+  - expectation_name: expect_table_row_count_to_be_in_range
+    expectation_severity: RaiseError
+    table_name: entity
+    min_expected_row_count: 3
+    max_expected_row_count: 3
+
+  - expectation_name: expect_table_to_have_set_of_columns
+    expectation_severity: RaiseError 
+    table_name: entity    
+    fail_if_found_more_than_expected: False   
+    expected_columns_set:      
+      - dataset 
+      - end_date       
+      - entity 
+      - entry_date 
+      - geojson 
+      - geometry
+      - json 
+      - name
+      - organisation_entity
+      - point
+      - prefix
+      - reference
+      - start_date
+      - typology
+
+  - expectation_name: expect_values_for_field_to_be_unique
+    expectation_severity: RaiseError
+    table_name: entity
+    fields:
+      - entity
+
+  - expectation_name: expect_values_in_field_to_be_within_range
+    expectation_severity: RaiseError
+    min_expected_value: 700000
+    max_expected_value: 799999
+    table_name: entity
+    field_name: entity
+    ref_fields:
+      - entity
+
+  - expectation_name: expect_keys_in_json_field_to_be_in_set_of_options
+    expectation_severity: LogWarning
+    table_name: entity
+    field_name: json     
+    ref_fields: 
+      - entity
+    expected_keys_set: 
+      - end-date
+      - entity
+      - entry-date
+      - listed-building-grade
+      - name
+      - start-date
+ 
+  - expectation_name: expect_values_for_a_key_stored_in_json_are_within_a_set
+    expectation_severity: LogWarning
+    table_name: entity
+    field: json
+    json_key: listed-building-grade 
+    ref_fields: 
+      - entity
+    expected_values_set: 
+      - I
+      - II
+      - II*

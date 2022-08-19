@@ -1,0 +1,119 @@
+collection_name: listed-building
+
+expectations:
+  - expectation_name: expect_database_to_have_set_of_tables
+    expectation_severity: RaiseError
+    fail_if_found_more_than_expected: False
+    expected_tables_set: 
+      - column_field
+      - dataset_resource
+      - entity
+      - fact
+      - fact_resource
+  
+  - expectation_name: expect_table_row_count_to_be_in_range
+    expectation_severity: RaiseError
+    table_name: entity
+    min_expected_row_count: 370000
+    max_expected_row_count: 3700000
+
+  - expectation_name: expect_table_to_have_set_of_columns
+    expectation_severity: RaiseError 
+    table_name: entity    
+    fail_if_found_more_than_expected: False   
+    expected_columns_set:      
+      - dataset 
+      - end_date       
+      - entity 
+      - entry_date 
+      - geojson 
+      - geometry
+      - json 
+      - name
+      - organisation_entity
+      - point
+      - prefix
+      - reference
+      - start_date
+      - typology
+
+  - expectation_name: expect_values_for_field_to_be_unique
+    expectation_severity: RaiseError
+    table_name: entity
+    fields:
+      - entity
+
+  - expectation_name: expect_geoshapes_to_be_valid
+    expectation_severity: RaiseError
+    table_name: entity
+    shape_field: point
+    ref_fields: 
+      - entity
+
+  - expectation_name: expect_values_in_field_to_be_within_range
+    expectation_severity: RaiseError
+    min_expected_value: 31100000
+    max_expected_value: 41099999
+    table_name: entity
+    field_name: entity
+    ref_fields:
+      - entity
+
+  - expectation_name: expect_keys_in_json_field_to_be_in_set_of_options
+    expectation_severity: LogWarning
+    table_name: entity
+    field_name: json     
+    ref_fields: 
+      - entity
+    expected_keys_set: 
+      - documentation-url
+      - end-date
+      - entity
+      - entry-date
+      - geometry
+      - listed-building
+      - listed-building-grade
+      - name
+      - organisation
+      - point
+      - reference
+      - start-date
+      - wikidata
+      - wikipedia
+
+  - expectation_name: expect_values_for_a_key_stored_in_json_are_within_a_set
+    expectation_severity: RaiseError
+    table_name: entity
+    field: json
+    json_key: listed-building-grade 
+    ref_fields: 
+        - entity
+    expected_values_set: 
+      - I
+      - II
+      - II*
+
+  - expectation_name: expect_row_count_for_lookup_value_to_be_in_range
+    expectation_severity: RaiseError
+    table_name: entity
+    field_name: organisation_entity
+    count_ranges_per_value:
+      - lookup_value: 16 
+        min_row_count: 379000
+        max_row_count: 400000
+  
+  - expectation_name: expect_urls_stored_for_a_key_in_json_to_end_in_expected_domain_endings
+    expectation_severity: RaiseError
+    table_name: entity
+    field_name: json
+    json_key: documentation-url
+    list_of_domain_endings:
+      - .gov.uk
+      - .org.uk
+    ref_fields:
+      - entity
+
+  - expectation_name: expect_custom_query_result_to_be_as_predicted
+    expectation_severity: LogWarning
+    custom_query:  "SELECT entity FROM entity WHERE NOT within(GeomFromText(point),GeomFromText('POLYGON((1.8945312500000089 51.813140280780466,1.5783691406250133 51.18131235395438,0.9765625000000178 50.721890578206164,-0.051269531249973355 50.5284096928028,-0.9423828124999956 50.44088083267981,-1.483154296875 50.335512996977926,-2.7832031249999867 50.40634596393264,-3.245239257812478 50.330303614003356,-3.399658203124989 50.057047896096385,-4.06494140625 50.12857778117416,-4.400634765624991 50.059144553242234,-4.758911132812493 49.958865388612246,-5.007324218749996 49.77331028794251,-5.823059082031246 49.75328575147075,-6.263885498046871 49.7752076802917,-6.583862304687496 49.85736105326951,-6.368103027343747 50.06494022902259,-5.9326171875 50.250554601622895,-5.627441406250004 50.47301627982946,-5.083007812499993 50.859369669480465,-4.861831665039067 51.194052975729385,-4.720020294189455 51.39660118416888,-4.276084899902344 51.45129488544272,-3.9430236816406206 51.44765015789111,-3.842697143554674 51.41981092063364,-3.758850097656228 51.37481312750211,-3.7738800048827814 51.37951287703446,-3.769683837890605 51.382497984062354,-3.7270355224609286 51.36490930996807,-3.7139511108398304 51.396401442734486,-3.6085319519042813 51.38300771989602,-3.3795166015624822 51.340451325977895,-3.209152221679661 51.364022211603206,-3.136329650878875 51.38266036506907,-3.1321716308593595 51.43383561968381,-3.0408287048339666 51.46710201784049,-2.94571876525878 51.45635154843468,-2.870697975158687 51.519389081514184,-2.8835678100585938 51.65737210215303,-2.858142852783201 51.78572244235055,-3.107376098632808 51.92726036476879,-3.2473754882812367 52.18016290090824,-3.380546569824201 52.4218032647466,-3.183126449584952 52.63896014960092,-3.249378204345683 52.7820099275612,-3.0852508544921653 52.94771279049035,-2.987914085388166 53.06090069619383,-3.1322765350341664 53.20670482579809,-3.3660697937011475 53.53602490092128,-3.2623672485351296 53.75408904942994,-3.428497314453114 53.980614559588254,-4.0134429931640625 54.46193444654582,-3.851318359374991 54.627215736585946,-3.367919921874991 55.00229817961456,-2.796630859374991 55.21126438852553,-2.428588867187491 55.44407341676468,-2.434082031249991 55.69409744799882,-2.055053710937491 55.9263786256468,-1.3244628906249911 55.52810983041714,-1.1157226562499911 54.82073110533281,-0.3686523437499911 54.70981068040305,-0.08300781249999112 54.46152152812056,0.17036437988282138 54.176767735332994,0.13809204101563388 53.9029871031785,0.5130004882812589 53.55934253266715,0.5926513671875089 53.14786586860435,1.8972778320312589 52.97124627370828,2.059326171875009 52.56076613683623,1.8945312500000089 51.813140280780466))'));"
+    expected_query_result: []
